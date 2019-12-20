@@ -11,7 +11,7 @@ Paramiko
 
 :Paramiko:    Python SSH module
 :Copyright:   Copyright (c) 2003-2009  Robey Pointer <robeypointer@gmail.com>
-:Copyright:   Copyright (c) 2013-2019  Jeff Forcier <jeff@bitprophet.org>
+:Copyright:   Copyright (c) 2013-2017  Jeff Forcier <jeff@bitprophet.org>
 :License:     `LGPL <https://www.gnu.org/copyleft/lesser.html>`_
 :Homepage:    http://www.paramiko.org/
 :API docs:    http://docs.paramiko.org
@@ -22,7 +22,7 @@ What
 ----
 
 "Paramiko" is a combination of the Esperanto words for "paranoid" and
-"friend".  It's a module for Python 2.7/3.4+ that implements the SSH2 protocol
+"friend".  It's a module for Python 2.6+/3.3+ that implements the SSH2 protocol
 for secure (encrypted and authenticated) connections to remote machines. Unlike
 SSL (aka TLS), SSH2 protocol does not require hierarchical certificates signed
 by a powerful central authority.  You may know SSH2 as the protocol that
@@ -56,6 +56,13 @@ Portability Issues
 Paramiko primarily supports POSIX platforms with standard OpenSSH
 implementations, and is most frequently tested on Linux and OS X.  Windows is
 supported as well, though it may not be as straightforward.
+
+Some Windows users whose Python is 64-bit have found that the PyCrypto
+dependency ``winrandom`` may not install properly, leading to an
+``ImportError``.  In this scenario, you may need to compile ``winrandom``
+yourself.  See `Fabric #194 <https://github.com/fabric/fabric/issues/194>`_
+for info.
+
 
 Bugs & Support
 --------------
@@ -132,14 +139,6 @@ doc/ folder.
 
 There are also unit tests here::
 
-    $ pip install -r dev-requirements.txt
-    $ pytest
+    $ python ./test.py
 
 Which will verify that most of the core components are working correctly.
-
-To test Kerberos/GSSAPI, you need a Kerberos environment. On UNIX you can
-use the package k5test to setup a Kerberos environment on the fly::
-
-    $ pip install -r dev-requirements.txt
-    $ pip install k5test gssapi pyasn1
-    $ pytest
